@@ -7,7 +7,7 @@ const contactsPath = path.resolve("db");
 export const listContacts = async () => {
   const data = await fs.readFile(contactsPath, { encoding: "utf-8" });
   const contactsList = JSON.parse(data);
-  return console.log(contactsList);
+  return contactsList;
 };
 
 export const getContactById = async (contactId) => {
@@ -15,7 +15,7 @@ export const getContactById = async (contactId) => {
   const requestedContact = contacts.find((contact) => contact.id === contactId);
   if (!requestedContact)
     return console.error("This contact doesn't exist in your phonebook");
-  return requestedContact;
+  console.log(requestedContact);
 };
 
 export const removeContact = async (contactId) => {
@@ -26,6 +26,7 @@ export const removeContact = async (contactId) => {
   await fs.writeFile(contactsPath, JSON.stringify(filteredContacts, null, 2), {
     encoding: "utf-8",
   });
+  console.table(filteredContacts);
 };
 
 export const addContact = async (name, email, phone) => {
